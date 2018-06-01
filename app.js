@@ -1,6 +1,7 @@
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
+var http = require('http');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var request = require('request');
@@ -44,13 +45,17 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 // get api
 app.get('/test', function(req, res) {
-  request('https://conduit.productionready.io/api/articles/', function (error, response, body) {
+  request('/check', function (error, response, body) {
     if (!error && response.statusCode == 200) {
       var info = JSON.parse(body)
       // do more stuff
       res.send(info.articles);
     }
   })
+});
+
+router.get('/check', function(req, res) {
+  res.send('ok');
 });
 app.use('/birds', birds);
 app.use('/users', usersRouter);

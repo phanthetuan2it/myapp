@@ -45,7 +45,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 // get api
 app.get('/test', function(req, res) {
-  request('https://conduit.productionready.io/api/articles/', function (error, response, body) {
+  request('http://localhost:3000/users', function (error, response, body) {
     if (!error && response.statusCode == 200) {
       var info = JSON.parse(body)
       // do more stuff
